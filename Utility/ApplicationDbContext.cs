@@ -15,5 +15,6 @@ namespace LibraryManagement.Utility
         }
 
         public DbSet<BookType> BookTypes { get; set; }
+        public DbSet<Book> Books { get; set; }
     }
 }

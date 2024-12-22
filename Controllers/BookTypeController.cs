@@ -12,16 +12,16 @@ namespace LibraryManagement.Controllers
 {
     public class BookTypeController : Controller
     {
-        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IBookTypeRepository _bookTypeRepo;
 
-        public BookTypeController(ApplicationDbContext context)
+        public BookTypeController(IBookTypeRepository context)
         {
-            _applicationDbContext = context;
+            _bookTypeRepo = context;
         }
 
         public IActionResult Index()
         {
-            List<BookType> bookTypes = _applicationDbContext.BookTypes.ToList();
+            List<BookType> bookTypes = _bookTypeRepo.GetAll().ToList();
             return View(bookTypes);
         }
 
@@ -35,8 +35,9 @@ namespace LibraryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                _applicationDbContext.BookTypes.Add(bookType);
-                _applicationDbContext.SaveChanges(); // Veritabanına bilgileri ekler.
+                _bookTypeRepo.Add(bookType);
+                _bookTypeRepo.Save(); // Veritabanına bilgileri ekler.
+                TempData["succesful"] = "Yeni kitap türü başarıyla oluşturuldu!";
                 return RedirectToAction("Index");
             }
             return View();
@@ -49,7 +50,7 @@ namespace LibraryManagement.Controllers
             {
                 return NotFound();
             }
-            BookType? bookTypeVt = _applicationDbContext.BookTypes.Find(id);
+            BookType? bookTypeVt = _bookTypeRepo.Get(u=>u.Id == id);
             if(bookTypeVt == null)
             {
                 return NotFound();
@@ -62,8 +63,9 @@ namespace LibraryManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                _applicationDbContext.BookTypes.Update(bookType);
-                _applicationDbContext.SaveChanges();
+                _bookTypeRepo.Update(bookType);
+                _bookTypeRepo.Save();
+                TempData["succesful"] = "Kitap türü başarıyla güncellendi!";
                 return RedirectToAction("Index");
             }
             return View();
@@ -75,7 +77,7 @@ namespace LibraryManagement.Controllers
             {
                 return NotFound();
             }
-            BookType? bookTypeVt = _applicationDbContext.BookTypes.Find(id);
+            BookType? bookTypeVt = _bookTypeRepo.Get(u=>u.Id == id);
             if(bookTypeVt == null)
             {
                 return NotFound();
@@ -86,13 +88,14 @@ namespace LibraryManagement.Controllers
         [HttpPost, ActionName("DeleteBookType")]
         public IActionResult DeleteBookTypePost(int? id)
         {
-            BookType? bookType = _applicationDbContext.BookTypes.Find(id);
+            BookType? bookType = _bookTypeRepo.Get(u=>u.Id == id);
             if (bookType == null)
             {
                 return NotFound();
             }
-            _applicationDbContext.BookTypes.Remove(bookType);
-            _applicationDbContext.SaveChanges();
+            _bookTypeRepo.Delete(bookType);
+            _bookTypeRepo.Save();
+            TempData["succesful"] = "Kayıt silme işlemi başarılı!";
             return RedirectToAction("Index");
         }
         
