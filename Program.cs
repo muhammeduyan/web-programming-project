@@ -12,8 +12,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // _bookTypeRepo nesnesinin oluşturulmasını sağlar. => Dependency Injection
 builder.Services.AddScoped<IBookTypeRepository, BookTypeRepository>();
-
 builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IRentBookRepository, RentBookRepository>();
+
 
 
 var app = builder.Build();

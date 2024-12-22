@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using LibraryManagement.Models;
 
+// Veritabanında EF Tablo oluşturması için ilgili model sınıfları buraya eklenmeli.
+
 namespace LibraryManagement.Utility
 {
     public class ApplicationDbContext : DbContext
@@ -16,5 +18,7 @@ namespace LibraryManagement.Utility
 
         public DbSet<BookType> BookTypes { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<RentBook> RentBooks { get; set; }
+
     }
 }
