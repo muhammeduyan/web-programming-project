@@ -157,3 +157,4 @@
 /Users/muhammed/Desktop/LibraryManagement/obj/Debug/net8.0/LibraryManagement.pdb
 /Users/muhammed/Desktop/LibraryManagement/obj/Debug/net8.0/LibraryManagement.genruntimeconfig.cache
 /Users/muhammed/Desktop/LibraryManagement/obj/Debug/net8.0/ref/LibraryManagement.dll
+/Users/muhammed/Desktop/LibraryManagement/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
